@@ -29,7 +29,7 @@ namespace Questionnaire.View {
 			}
 
 			if (isQuestionIncludeVariants() && Variants.Count == 0) {
-				MessageBox.Show("необходимо заполнить варианты ответа");
+				MainWindow.MessageShow("необходимо заполнить варианты ответа", true);
 				return;
 			}
 
@@ -77,17 +77,15 @@ namespace Questionnaire.View {
 		private void onCreateForm(object sender, RoutedEventArgs e) {
 			string formName = tbFormName.Text.Trim();
 			if (formName.Length == 0) {
-				MessageBox.Show("необходимо ввести название анкеты");
+				MainWindow.MessageShow("необходимо ввести название анкеты", true);
 				return;
 			}
 
-			Form form = Cache.Add(new Form() { Name = formName, Teacher = "1" });
+			Form form = Cache.AddForm(new Form() { Name = formName, Teacher = Pages.Authorization.GetAccount().Login });
 			if (form == null) {
-				MessageBox.Show("анкета не была добавлена 😥");
+				MainWindow.MessageShow("анкета не была добавлена 😥", true);
 				return;
 			}
-
-			Cache.Forms.Add(form);
 
 			foreach (Question question in Quesions) {
 				question.Form = form.ID;
@@ -98,8 +96,7 @@ namespace Questionnaire.View {
 			Quesions.Clear();
 			tbFormName.Clear();
 
-			MessageBox.Show("анкета успешно добавлена 😉");
-			Pages.Teacher.UpdateFormList();
+			MainWindow.MessageShow("анкета успешно добавлена 😉");
 			NavigationService.Navigate(Pages.Teacher);
 		}
 	}

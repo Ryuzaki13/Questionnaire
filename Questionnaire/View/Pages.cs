@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace Questionnaire.View {
 	public class Pages {
+		private static RegistrationPage registration;
 		private static AuthorizationPage authorization;
 		private static TeacherPage teacher;
 		private static QuestionConstructorPage questionConstructor;
+
+		public static RegistrationPage Registration {
+			get {
+				if (registration == null) {
+					registration = new RegistrationPage();
+				}
+				return registration;
+			}
+		}
 
 		public static AuthorizationPage Authorization {
 			get {
