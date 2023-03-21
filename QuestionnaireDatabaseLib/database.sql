@@ -58,3 +58,16 @@ INSERT INTO "QuestionType" ("Name", "Description") VALUES ('TextBox', 'Поле 
 INSERT INTO "QuestionType" ("Name", "Description") VALUES ('DatePicker', 'Выбор даты');
 INSERT INTO "QuestionType" ("Name", "Description") VALUES ('ComboBox', 'Выбор одного варианта из списка');
 INSERT INTO "QuestionType" ("Name", "Description") VALUES ('CheckBox', 'Выбор нескольких вариантов из списка');
+
+-- тестовые данные
+
+INSERT INTO "Account" ("Login", "Password", "FirstName", "LastName", "Patronymic", "Role", "Class") VALUES ('Hello', 'World', 'Иванов', 'Иван', 'Иванович', 'Teacher', null);
+
+INSERT INTO "Form" ("ID", "Name", "Teacher") VALUES (2, 'Первая анкетка', 'admin');
+INSERT INTO "Form" ("ID", "Name", "Teacher") VALUES (4, 'Типа вторая анкетка', 'admin');
+
+INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (1, 'TextBox', '{"Text": "Hello", "Variants": null}', 2, 1);
+INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (2, 'TextBox', '{"Text": "World", "Variants": null}', 2, 2);
+INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (3, 'ComboBox', '{"Text": "Пупсик?", "Variants": ["Да", "Нет", "Сомневаюсь"]}', 2, 3);
+INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (4, 'ComboBox', '{"Text": "Есть ли у вас компьютер?", "Variants": ["Да", "Нет"]}', 4, 1);
+INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (5, 'ComboBox', '{"Text": "Любишь играть в доту?", "Variants": ["Нет", "НЕТ", "Скорее всего нет!"]}', 4, 2);
