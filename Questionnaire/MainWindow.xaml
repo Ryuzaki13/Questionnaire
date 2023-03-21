@@ -8,5 +8,9 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Frame NavigationUIVisibility="Hidden" Name="AppFrame"></Frame>
+
+        <Border Name="Message" VerticalAlignment="Bottom" Padding="10" Margin="10" Visibility="Collapsed">
+            <TextBlock Foreground="White" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Name="MessageText"></TextBlock>
+        </Border>
     </Grid>
 </Window>

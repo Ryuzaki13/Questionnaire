@@ -90,6 +90,9 @@
     <Compile Include="View\QuestionConstructorPage.xaml.cs">
       <DependentUpon>QuestionConstructorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RegistrationPage.xaml.cs">
+      <DependentUpon>RegistrationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TeacherPage.xaml.cs">
       <DependentUpon>TeacherPage.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\QuestionConstructorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RegistrationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,6 +157,9 @@
       <Project>{c032ec12-83dc-4c0b-a72b-579e6ea953ef}</Project>
       <Name>QuestionnaireDatabaseLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="database.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
