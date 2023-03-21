@@ -1,10 +1,8 @@
 ﻿using Npgsql;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace QuestionnaireDatabaseLib {
 
@@ -33,11 +31,15 @@ namespace QuestionnaireDatabaseLib {
 			return default;
 		}
 
-		public List<T> Query<T>(string sql, object[] parameters = null) where T : new() {
+		public ObservableCollection<T> Query<T>(string sql, object[] parameters = null) where T : new() {
 			NpgsqlCommand cmd = new NpgsqlCommand(sql, connection);
 			if (parameters != null) {
 				foreach (var parameter in parameters) {
-					cmd.Parameters.Add(new NpgsqlParameter() { Value = parameter });
+					if (parameter == null) {
+						cmd.Parameters.Add(new NpgsqlParameter() { Value = DBNull.Value });
+					} else {
+						cmd.Parameters.Add(new NpgsqlParameter() { Value = parameter });
+					}
 				}
 			}
 
@@ -52,17 +54,22 @@ namespace QuestionnaireDatabaseLib {
 					return null;
 				}
 
-				List<T> response = new List<T>();
+				ObservableCollection<T> response = new ObservableCollection<T>();
 
 				while (reader.Read()) {
 					T entity = new T();
 
 					for (int i = 0; i < reader.FieldCount; i++) {
+						if (reader.IsDBNull(i)) {
+							continue;
+						}
+
 						string fieldName = reader.GetName(i);
 
 						PropertyInfo property = typeof(T).GetProperty(fieldName);
-						if (property == null)
+						if (property == null) {
 							continue;
+						}
 
 						object value;
 						if (reader.GetPostgresType(i).Name == "jsonb") {
