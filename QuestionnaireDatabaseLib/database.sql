@@ -49,3 +49,12 @@ create table "Answer"
     "Content"  jsonb     not null,
     "Date"     timestamp not null
 );
+
+INSERT INTO "Role" ("Name") VALUES ('Admin');
+INSERT INTO "Role" ("Name") VALUES ('Teacher');
+INSERT INTO "Role" ("Name") VALUES ('Student');
+
+INSERT INTO "QuestionType" ("Name", "Description") VALUES ('TextBox', 'Поле ввода');
+INSERT INTO "QuestionType" ("Name", "Description") VALUES ('DatePicker', 'Выбор даты');
+INSERT INTO "QuestionType" ("Name", "Description") VALUES ('ComboBox', 'Выбор одного варианта из списка');
+INSERT INTO "QuestionType" ("Name", "Description") VALUES ('CheckBox', 'Выбор нескольких вариантов из списка');
