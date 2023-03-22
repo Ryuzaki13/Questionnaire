@@ -63,8 +63,8 @@ INSERT INTO "QuestionType" ("Name", "Description") VALUES ('CheckBox', 'Выбо
 
 INSERT INTO "Account" ("Login", "Password", "FirstName", "LastName", "Patronymic", "Role", "Class") VALUES ('Hello', 'World', 'Иванов', 'Иван', 'Иванович', 'Teacher', null);
 
-INSERT INTO "Form" ("ID", "Name", "Teacher") VALUES (2, 'Первая анкетка', 'admin');
-INSERT INTO "Form" ("ID", "Name", "Teacher") VALUES (4, 'Типа вторая анкетка', 'admin');
+INSERT INTO "Form" ("ID", "Name", "Teacher") VALUES (2, 'Первая анкетка', 'Hello');
+INSERT INTO "Form" ("ID", "Name", "Teacher") VALUES (4, 'Типа вторая анкетка', 'Hello');
 
 INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (1, 'TextBox', '{"Text": "Hello", "Variants": null}', 2, 1);
 INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (2, 'TextBox', '{"Text": "World", "Variants": null}', 2, 2);
