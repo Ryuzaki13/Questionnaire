@@ -122,12 +122,12 @@ namespace QuestionnaireDatabaseLib {
 			foreach (Form form in forms) {
 				formMap.Add(form.ID, form);
 
-				Account account = accountMap[form.Teacher];
-				if (account == null) {
-					continue;
+				if (accountMap.ContainsKey(form.Teacher)) {
+					Account account = accountMap[form.Teacher];
+					if (account != null) {
+						form.TeacherReference = account;
+					}					
 				}
-
-				form.TeacherReference = account;
 			}
 		}
 		private static void loadQuestionTypes() {
@@ -159,11 +159,13 @@ namespace QuestionnaireDatabaseLib {
 			foreach (Question question in questions) {
 				questionMap.Add(question.ID, question);
 
-				Form form = formMap[question.Form];
-				if (form != null) {
-					question.FormReference = form;
+				if (formMap.ContainsKey(question.Form)) {
+					Form form = formMap[question.Form];
+					if (form != null) {
+						question.FormReference = form;
+					}
 				}
-
+				
 				foreach (QuestionType questionType in questionTypes) {
 					if (questionType.Name == question.Type) {
 						question.TypeReference = questionType;
@@ -186,20 +188,27 @@ namespace QuestionnaireDatabaseLib {
 				return;
 			}
 			foreach (Answer answer in answers) {
-				Account account = accountMap[answer.Student];
-				if (account != null) {
-					answer.StudentReference = account;
+				if (accountMap.ContainsKey(answer.Student)) {
+					Account account = accountMap[answer.Student];
+					if (account != null) {
+						answer.StudentReference = account;
+					}
 				}
 
-				Question question = questionMap[answer.Question];
-				if (question != null) {
-					answer.QuestionReference = question;
+				if (questionMap.ContainsKey(answer.Question)) {
+					Question question = questionMap[answer.Question];
+					if (question != null) {
+						answer.QuestionReference = question;
+					}
 				}
 			}
 		}
 
 		public static Account GetAccount(string login) {
-			return accountMap[login];
+			if (accountMap.ContainsKey(login)) {
+				return accountMap[login];
+			}
+			return null;
 		}
 
 		public static Form AddForm(Form form) {
@@ -211,7 +220,7 @@ namespace QuestionnaireDatabaseLib {
 			forms.Add(form);
 			formMap.Add(form.ID, form);
 
-			Account account = accountMap[form.Teacher];
+			Account account = GetAccount(form.Teacher);
 			if (account != null) {
 				form.TeacherReference = account;
 			}
