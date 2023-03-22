@@ -21,18 +21,18 @@ namespace Questionnaire.View {
 			string password = tbPassword.Password.Trim();
 
 			if (login.Length == 0 || password.Length == 0) {
-				MainWindow.MessageShow("Введите логин/пароль");
+				MainWindow.MessageShow("Введите логин/пароль", true);
 				return;
 			}
 
 			account = Cache.GetAccount(login);
 			if (account == null) {
-				MainWindow.MessageShow("Неверный логин/пароль");
+				MainWindow.MessageShow("Неверный логин/пароль", true);
 				return;
 			}
 
 			if (account.Password != password) {
-				MainWindow.MessageShow("Неверный логин/пароль");
+				MainWindow.MessageShow("Неверный логин/пароль", true);
 				return;
 			}
 
