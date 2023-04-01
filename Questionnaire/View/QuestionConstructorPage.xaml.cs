@@ -89,8 +89,7 @@ namespace Questionnaire.View {
 
 			foreach (Question question in Quesions) {
 				question.Form = form.ID;
-				Cache.Add(question);
-				Cache.Questions.Add(question);
+				Cache.AddQuestion(question);
 			}
 
 			Quesions.Clear();

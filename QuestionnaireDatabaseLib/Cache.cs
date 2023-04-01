@@ -120,14 +120,7 @@ namespace QuestionnaireDatabaseLib {
 				return;
 			}
 			foreach (Form form in forms) {
-				formMap.Add(form.ID, form);
-
-				if (accountMap.ContainsKey(form.Teacher)) {
-					Account account = accountMap[form.Teacher];
-					if (account != null) {
-						form.TeacherReference = account;
-					}					
-				}
+				buildForm(form);
 			}
 		}
 		private static void loadQuestionTypes() {
@@ -157,21 +150,7 @@ namespace QuestionnaireDatabaseLib {
 				return;
 			}
 			foreach (Question question in questions) {
-				questionMap.Add(question.ID, question);
-
-				if (formMap.ContainsKey(question.Form)) {
-					Form form = formMap[question.Form];
-					if (form != null) {
-						question.FormReference = form;
-					}
-				}
-				
-				foreach (QuestionType questionType in questionTypes) {
-					if (questionType.Name == question.Type) {
-						question.TypeReference = questionType;
-						break;
-					}
-				}
+				buildQuestion(question);
 			}
 		}
 		private static void loadAnswers() {
@@ -188,27 +167,44 @@ namespace QuestionnaireDatabaseLib {
 				return;
 			}
 			foreach (Answer answer in answers) {
-				if (accountMap.ContainsKey(answer.Student)) {
-					Account account = accountMap[answer.Student];
-					if (account != null) {
-						answer.StudentReference = account;
-					}
+				Account account = accountMap[answer.Student];
+				if (account != null) {
+					answer.StudentReference = account;
 				}
 
-				if (questionMap.ContainsKey(answer.Question)) {
-					Question question = questionMap[answer.Question];
-					if (question != null) {
-						answer.QuestionReference = question;
-					}
+				Question question = questionMap[answer.Question];
+				if (question != null) {
+					answer.QuestionReference = question;
+				}
+			}
+		}
+
+		private static void buildForm(Form form) {
+			formMap.Add(form.ID, form);
+
+			Account account = accountMap[form.Teacher];
+			if (account != null) {
+				form.TeacherReference = account;
+			}
+		}
+		private static void buildQuestion(Question question) {
+			questionMap.Add(question.ID, question);
+
+			Form form = formMap[question.Form];
+			if (form != null) {
+				question.FormReference = form;
+			}
+
+			foreach (QuestionType questionType in questionTypes) {
+				if (questionType.Name == question.Type) {
+					question.TypeReference = questionType;
+					break;
 				}
 			}
 		}
 
 		public static Account GetAccount(string login) {
-			if (accountMap.ContainsKey(login)) {
-				return accountMap[login];
-			}
-			return null;
+			return accountMap[login];
 		}
 
 		public static Form AddForm(Form form) {
@@ -216,19 +212,25 @@ namespace QuestionnaireDatabaseLib {
 			if (responseForm != null) {
 				form.ID = responseForm.ID;
 			}
-			
-			forms.Add(form);
-			formMap.Add(form.ID, form);
 
-			Account account = GetAccount(form.Teacher);
-			if (account != null) {
-				form.TeacherReference = account;
-			}
+			forms.Add(form);
+			buildForm(form);
 
 			return form;
 		}
+		public static Question AddQuestion(Question question) {
+			Question responseQuestion = Add(question);
+			if (responseQuestion != null) {
+				question.ID = responseQuestion.ID;
+			}
 
-		public static T Add<T>(T entity) where T : new() {
+			questions.Add(question);
+			buildQuestion(question);
+
+			return question;
+		}
+
+		private static T Add<T>(T entity) where T : new() {
 			if (typeof(T).GetCustomAttribute<PostgresTableAttribute>() == null) {
 				return default;
 			}
