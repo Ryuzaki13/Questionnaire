@@ -83,6 +83,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserControls\IQuestionElement.cs" />
+    <Compile Include="UserControls\QuestionManyVariant.xaml.cs">
+      <DependentUpon>QuestionManyVariant.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\QuestionOneVariant.xaml.cs">
+      <DependentUpon>QuestionOneVariant.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\QuestionTextBox.xaml.cs">
+      <DependentUpon>QuestionTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
     </Compile>
@@ -90,8 +100,14 @@
     <Compile Include="View\QuestionConstructorPage.xaml.cs">
       <DependentUpon>QuestionConstructorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\QuestionnairePage.xaml.cs">
+      <DependentUpon>QuestionnairePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentPage.xaml.cs">
+      <DependentUpon>StudentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TeacherPage.xaml.cs">
       <DependentUpon>TeacherPage.xaml</DependentUpon>
@@ -108,6 +124,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\QuestionManyVariant.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\QuestionOneVariant.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\QuestionTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AuthorizationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,7 +144,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\QuestionnairePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\RegistrationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

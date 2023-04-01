@@ -29,7 +29,50 @@ namespace Questionnaire.View {
 		}
 
 		private void buildQuestions() {
+			foreach (var question in form.Questions) {
+				if (question.Type == typeof(TextBox).Name) {
+					wpQuestions.Children.Add(new UserControls.QuestionTextBox() {
+						Position = question.Position,
+						QuestionText = question.Content.Text,
+						ID = question.ID,
+					});
+					continue;
+				}
+				if (question.Type == typeof(ComboBox).Name) {
+					wpQuestions.Children.Add(new UserControls.QuestionOneVariant(question.Content.Variants) {
+						Position = question.Position,
+						QuestionText = question.Content.Text,
+						ID = question.ID,
+					});
+					continue;
+				}
+				if (question.Type == typeof(CheckBox).Name) {
+					wpQuestions.Children.Add(new UserControls.QuestionManyVariant(question.Content.Variants) {
+						Position = question.Position,
+						QuestionText = question.Content.Text,
+						ID = question.ID,
+					});
+					continue;
+				}
+			}
+		}
 
+		private void Button_Click(object sender, RoutedEventArgs e) {
+			foreach (UIElement element in wpQuestions.Children) {
+				UserControls.IQuestionElement questionElement = (UserControls.IQuestionElement)element;
+				if (questionElement != null) {
+					var answers = questionElement.GetAnswers();
+					if (answers.Length != 0) {
+						Console.Write(questionElement.GetID());
+						Console.Write(": ");
+						Console.WriteLine(String.Join("; ", answers));
+					} else {
+						Console.Write("Вопрос ");
+						Console.Write(questionElement.GetID());
+						Console.WriteLine(" без ответа");
+					}
+				}
+			}
 		}
 	}
 }
