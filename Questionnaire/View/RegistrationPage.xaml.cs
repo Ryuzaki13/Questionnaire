@@ -18,7 +18,7 @@ namespace Questionnaire.View {
 		private void onRegister(object sender, RoutedEventArgs e) {
 			account.Password = tbPassword.Password.Trim();
 
-			account = Cache.Add(account);
+			account = Cache.AddAccount(account);
 			if (account != null) {
 				MainWindow.MessageShow("Аккаунт зарегистрирован");
 			} else {

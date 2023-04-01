@@ -85,25 +85,7 @@ namespace QuestionnaireDatabaseLib {
 				return;
 			}
 			foreach (Account account in accounts) {
-				accountMap.Add(account.Login, account);
-
-				foreach (Role role in roles) {
-					if (role.Name == account.Role) {
-						account.RoleReference = role;
-						break;
-					}
-				}
-
-				if (account.Class == null) {
-					continue;
-				}
-
-				foreach (Class _class in classes) {
-					if (_class.Name == account.Class) {
-						account.ClassReference = _class;
-						break;
-					}
-				}
+				buildAccount(account);
 			}
 		}
 		private static void loadForms() {
@@ -179,6 +161,25 @@ namespace QuestionnaireDatabaseLib {
 			}
 		}
 
+		private static void buildAccount(Account account) {
+			accountMap.Add(account.Login, account);
+
+			foreach (Role role in roles) {
+				if (role.Name == account.Role) {
+					account.RoleReference = role;
+					break;
+				}
+			}
+
+			if (account.Class != null) {
+				foreach (Class _class in classes) {
+					if (_class.Name == account.Class) {
+						account.ClassReference = _class;
+						break;
+					}
+				}
+			}			
+		}
 		private static void buildForm(Form form) {
 			formMap.Add(form.ID, form);
 
@@ -207,6 +208,14 @@ namespace QuestionnaireDatabaseLib {
 			return accountMap[login];
 		}
 
+		public static Account AddAccount(Account account) {
+			Add(account);
+
+			accounts.Add(account);
+			buildAccount(account);
+
+			return account;
+		}
 		public static Form AddForm(Form form) {
 			Form responseForm = Add(form);
 			if (responseForm != null) {
