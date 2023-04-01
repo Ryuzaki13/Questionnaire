@@ -9,7 +9,9 @@ namespace Questionnaire.View {
 		private static RegistrationPage registration;
 		private static AuthorizationPage authorization;
 		private static TeacherPage teacher;
+		private static StudentPage student;
 		private static QuestionConstructorPage questionConstructor;
+		private static QuestionnairePage questionnaire;
 
 		public static RegistrationPage Registration {
 			get {
@@ -38,6 +40,15 @@ namespace Questionnaire.View {
 			}
 		}
 
+		public static StudentPage Student {
+			get {
+				if (student == null) {
+					student = new StudentPage();
+				}
+				return student;
+			}
+		}
+
 		public static QuestionConstructorPage QuestionConstructor {
 			get {
 				if (questionConstructor == null) {
@@ -46,5 +57,15 @@ namespace Questionnaire.View {
 				return questionConstructor;
 			}
 		}
+
+		public static QuestionnairePage Questionnaire {
+			get {
+				if (questionnaire == null) {
+					questionnaire = new QuestionnairePage();
+				}
+				return questionnaire;
+			}
+		}
+
 	}
 }

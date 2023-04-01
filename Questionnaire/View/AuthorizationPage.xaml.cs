@@ -42,7 +42,7 @@ namespace Questionnaire.View {
 			}
 
 			if (account.Role == Role.Student) {
-
+				NavigationService.Navigate(Pages.Student);
 				return;
 			}
 
