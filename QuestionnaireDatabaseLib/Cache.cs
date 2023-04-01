@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Text.Json;
@@ -9,6 +10,7 @@ namespace QuestionnaireDatabaseLib {
 		private static Dictionary<string, Account> accountMap = new Dictionary<string, Account>();
 		private static Dictionary<int, Form> formMap = new Dictionary<int, Form>();
 		private static Dictionary<int, Question> questionMap = new Dictionary<int, Question>();
+		private static Dictionary<string, ObservableCollection<Answer>> accountAnswersMap = new Dictionary<string, ObservableCollection<Answer>>();
 
 		private static Connection connection;
 		private static ObservableCollection<Role> roles { get; set; }
@@ -149,15 +151,7 @@ namespace QuestionnaireDatabaseLib {
 				return;
 			}
 			foreach (Answer answer in answers) {
-				Account account = accountMap[answer.Student];
-				if (account != null) {
-					answer.StudentReference = account;
-				}
-
-				Question question = questionMap[answer.Question];
-				if (question != null) {
-					answer.QuestionReference = question;
-				}
+				buildAnswer(answer);
 			}
 		}
 
@@ -178,7 +172,7 @@ namespace QuestionnaireDatabaseLib {
 						break;
 					}
 				}
-			}			
+			}
 		}
 		private static void buildForm(Form form) {
 			formMap.Add(form.ID, form);
@@ -186,6 +180,7 @@ namespace QuestionnaireDatabaseLib {
 			Account account = accountMap[form.Teacher];
 			if (account != null) {
 				form.TeacherReference = account;
+				account.Forms.Add(form);
 			}
 		}
 		private static void buildQuestion(Question question) {
@@ -194,6 +189,7 @@ namespace QuestionnaireDatabaseLib {
 			Form form = formMap[question.Form];
 			if (form != null) {
 				question.FormReference = form;
+				form.Questions.Add(question);
 			}
 
 			foreach (QuestionType questionType in questionTypes) {
@@ -203,9 +199,43 @@ namespace QuestionnaireDatabaseLib {
 				}
 			}
 		}
+		private static void buildAnswer(Answer answer) {
+			Account account = accountMap[answer.Student];
+			if (account != null) {
+				answer.StudentReference = account;
+			}
+
+			Question question = questionMap[answer.Question];
+			if (question != null) {
+				answer.QuestionReference = question;
+
+				if (accountAnswersMap.ContainsKey(account.Login)) {
+					accountAnswersMap[account.Login].Add(answer);
+				} else {
+					accountAnswersMap.Add(account.Login, new ObservableCollection<Answer>() { answer });
+				}
+			}
+		}
 
 		public static Account GetAccount(string login) {
 			return accountMap[login];
+		}
+		public static int[] GetPassedForms(string login) {
+			if (accountAnswersMap.ContainsKey(login)) {
+				var answers = accountAnswersMap[login];
+
+				HashSet<int> ints = new HashSet<int>();
+				foreach (var answer in answers) {
+					if (answer.QuestionReference == null)
+						continue;
+					if (answer.QuestionReference.FormReference == null)
+						continue;
+					ints.Add(answer.QuestionReference.FormReference.ID);
+				}
+
+				return ints.ToArray();
+			}
+			return null;
 		}
 
 		public static Account AddAccount(Account account) {

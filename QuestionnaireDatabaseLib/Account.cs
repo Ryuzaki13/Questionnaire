@@ -1,6 +1,12 @@
-﻿namespace QuestionnaireDatabaseLib {
+﻿using System.Collections.ObjectModel;
+
+namespace QuestionnaireDatabaseLib {
 	[PostgresTable]
 	public class Account : CacheObject {
+		public Account() {
+			Forms = new ObservableCollection<Form>();
+		}
+
 		[PostgresField]
 		public string Login { get; set; }
 		[PostgresField]
@@ -18,5 +24,6 @@
 
 		public Role RoleReference { get; set; }
 		public Class ClassReference { get; set; }
+		public ObservableCollection<Form> Forms { get; set; }
 	}
 }
