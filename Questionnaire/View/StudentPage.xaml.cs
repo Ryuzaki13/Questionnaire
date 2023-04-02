@@ -10,8 +10,12 @@ namespace Questionnaire.View {
 			InitializeComponent();
 
 			lvForms.SetBinding(ItemsControl.ItemsSourceProperty, new Binding() { Source = Cache.Forms });
-			lvPassedForms.SetBinding(ItemsControl.ItemsSourceProperty, new Binding() { Source = new ObservableCollection<Form>(Cache.Forms) });			
+			lvPassedForms.SetBinding(ItemsControl.ItemsSourceProperty, new Binding() { Source = new ObservableCollection<Form>(Cache.Forms) });
 
+			UpdateFilter();
+		}
+
+		public void UpdateFilter() {
 			ApplyFormsFilter();
 			ApplyPassedFormsFilter();
 		}
@@ -22,8 +26,27 @@ namespace Questionnaire.View {
 				return;
 			}
 
+			bool isSkip = false;
+
+			Account account = Pages.Authorization.GetAccount();
+			if (account == null) {
+				isSkip = true;
+			}
+
+			var formIdCollection = Cache.GetPassedForms(account.Login);
+			if (formIdCollection == null) {
+				isSkip = true;
+			}
+
 			view.Filter = new Predicate<object>(any => {
-				return true;
+				if (isSkip == true)
+					return false;
+
+				Form form = any as Form;
+				if (form != null) {
+					return Array.IndexOf(formIdCollection, form.ID) == -1;
+				}
+				return false;
 			});
 		}
 

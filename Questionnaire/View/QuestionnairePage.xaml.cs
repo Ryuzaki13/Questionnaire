@@ -93,9 +93,9 @@ namespace Questionnaire.View {
 			}
 
 			MainWindow.MessageShow("Анкета успешно сохранена");
-			if (NavigationService.CanGoBack) {
-				NavigationService.GoBack();
-			}
+
+			Pages.Student.UpdateFilter();
+			NavigationService.Navigate(Pages.Student);
 		}
 	}
 }

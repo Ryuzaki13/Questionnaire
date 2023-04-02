@@ -19,6 +19,6 @@
             <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" Name="wpQuestions"></WrapPanel>
         </ScrollViewer>
 
-        <Button Content="Save" Grid.Row="2" Click="Button_Click"></Button>
+        <Button Content="Сохранить" Width="200" Grid.Row="2" Click="Button_Click"></Button>
     </Grid>
 </Page>
