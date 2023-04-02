@@ -14,6 +14,7 @@ namespace Questionnaire.View {
 			lvForms.SetBinding(ItemsControl.ItemsSourceProperty, new Binding() { Source = Cache.Forms });
 			lvQuestions.SetBinding(ItemsControl.ItemsSourceProperty, new Binding() { Source = Cache.Questions });
 
+			ApplyFormsFilter();
 			ApplyQuestionsFilter(0);
 		}
 
@@ -27,6 +28,23 @@ namespace Questionnaire.View {
 				Question question = any as Question;
 				if (question != null) {
 					return question.Form == formId;
+				}
+				return false;
+			});
+		}
+
+		private void ApplyFormsFilter() {
+			var view = CollectionViewSource.GetDefaultView(lvForms.ItemsSource);
+			if (view == null) {
+				return;
+			}
+
+			string accountLogin = Pages.Authorization.GetAccount().Login;
+
+			view.Filter = new Predicate<object>(any => {
+				Form form = any as Form;
+				if (form != null) {
+					return form.Teacher == accountLogin;
 				}
 				return false;
 			});

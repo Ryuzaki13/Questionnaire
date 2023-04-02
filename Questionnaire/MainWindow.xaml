@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Questionnaire"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="White">
         <Frame NavigationUIVisibility="Hidden" Name="AppFrame" Margin="0,34,0,0"></Frame>
 
         <Button Content="Выйти" Margin="10,10,0,0" Height="24" Name="bLogout" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Width="52" Click="onLogout"></Button>
