@@ -27,7 +27,7 @@
                     <DataTemplate>
                         <TextBlock>
                             <Bold><Run Text="{Binding Position}"></Run></Bold>
-                            <Run Text="{Binding Content.Text}"></Run>
+                            <Run Text="{Binding Text}"></Run>
                             <LineBreak></LineBreak>
                             <Italic><Run Text="{Binding Type}" Foreground="Gray"></Run></Italic>
                         </TextBlock>

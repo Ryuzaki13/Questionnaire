@@ -1,6 +1,7 @@
 ﻿using QuestionnaireDatabaseLib;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace Questionnaire.View {
 				if (question.Type == typeof(TextBox).Name) {
 					wpQuestions.Children.Add(new UserControls.QuestionTextBox() {
 						Position = question.Position,
-						QuestionText = question.Content.Text,
+						QuestionText = question.Text,
 						ID = question.ID,
 					});
 					continue;
@@ -41,7 +42,7 @@ namespace Questionnaire.View {
 				if (question.Type == typeof(ComboBox).Name) {
 					wpQuestions.Children.Add(new UserControls.QuestionOneVariant(question.Content.Variants) {
 						Position = question.Position,
-						QuestionText = question.Content.Text,
+						QuestionText = question.Text,
 						ID = question.ID,
 					});
 					continue;
@@ -49,7 +50,7 @@ namespace Questionnaire.View {
 				if (question.Type == typeof(CheckBox).Name) {
 					wpQuestions.Children.Add(new UserControls.QuestionManyVariant(question.Content.Variants) {
 						Position = question.Position,
-						QuestionText = question.Content.Text,
+						QuestionText = question.Text,
 						ID = question.ID,
 					});
 					continue;
@@ -57,7 +58,7 @@ namespace Questionnaire.View {
 				if (question.Type == typeof(DatePicker).Name) {
 					wpQuestions.Children.Add(new UserControls.QuestionDate() {
 						Position = question.Position,
-						QuestionText = question.Content.Text,
+						QuestionText = question.Text,
 						ID = question.ID,
 					});
 					continue;
@@ -66,20 +67,34 @@ namespace Questionnaire.View {
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e) {
+			string accountLogin = Pages.Authorization.GetAccount().Login;
+			DateTime date = DateTime.Now;
+			ObservableCollection<Answer> answers = new ObservableCollection<Answer>();
 			foreach (UIElement element in wpQuestions.Children) {
 				UserControls.IQuestionElement questionElement = (UserControls.IQuestionElement)element;
 				if (questionElement != null) {
-					var answers = questionElement.GetAnswers();
-					if (answers.Length != 0) {
-						Console.Write(questionElement.GetID());
-						Console.Write(": ");
-						Console.WriteLine(string.Join("; ", answers));
+					var questionAnswers = questionElement.GetAnswers();
+					if (questionAnswers.Length != 0) {
+						answers.Add(new Answer() {
+							Question = questionElement.GetID(),
+							Student = accountLogin,
+							Content = new QuestionContent() { Variants = questionAnswers },
+							Date = date
+						});
 					} else {
-						Console.Write("Вопрос ");
-						Console.Write(questionElement.GetID());
-						Console.WriteLine(" без ответа");
+						MainWindow.MessageShow(string.Format("Вопрос {0} без ответа", questionElement.GetID()));
+						return;
 					}
 				}
+			}
+
+			foreach (var answer in answers) {
+				Cache.AddAnswer(answer);
+			}
+
+			MainWindow.MessageShow("Анкета успешно сохранена");
+			if (NavigationService.CanGoBack) {
+				NavigationService.GoBack();
 			}
 		}
 	}

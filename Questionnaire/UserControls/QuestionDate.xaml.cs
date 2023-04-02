@@ -64,7 +64,7 @@ namespace Questionnaire.UserControls {
 				return new string[] { };
 			}
 			DateTime dateTime = AnswerText.Value;
-			return new string[] { dateTime.ToString("yyyy-MM-ddT12:00:00") };
+			return new string[] { dateTime.ToString("s") };
 		}
 	}
 }

@@ -8,6 +8,7 @@ using QuestionnaireDatabaseLib;
 namespace Questionnaire {
 
 	public partial class MainWindow : Window {
+		private static Button buttonLogout;
 		private static DispatcherTimer timer = new DispatcherTimer();
 		private static Border border;
 		private static TextBlock textBlock;
@@ -21,6 +22,7 @@ namespace Questionnaire {
 			timer.Tick += Timer_Tick;
 			border = Message;   // Имя элемента <Border>
 			textBlock = MessageText; // Имя элемента <TextBlock>
+			buttonLogout = bLogout;
 
 			ConnectionParameters parameters = ConnectionParameters.Load("connection_string.json");
 			if (parameters == null) {
@@ -38,7 +40,6 @@ namespace Questionnaire {
 
 			Cache.Connection = connection;
 
-			
 			//AppFrame.Navigate(View.Pages.Registration);
 			AppFrame.Navigate(View.Pages.Authorization);
 		}
@@ -58,6 +59,19 @@ namespace Questionnaire {
 			MessageText.Text = "";
 			Message.Visibility = Visibility.Collapsed;
 			timer.Stop();
+		}
+
+		private void onLogout(object sender, RoutedEventArgs e) {
+			bLogout.Visibility = Visibility.Hidden;
+
+			View.Pages.Reset();
+			Cache.Reload();
+
+			AppFrame.Navigate(View.Pages.Authorization);
+		}
+
+		public static void OnLogin() {
+			buttonLogout.Visibility = Visibility.Visible;
 		}
 	}
 }

@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Frame NavigationUIVisibility="Hidden" Name="AppFrame"></Frame>
+        <Frame NavigationUIVisibility="Hidden" Name="AppFrame" Margin="0,34,0,0"></Frame>
 
+        <Button Content="Выйти" Margin="10,10,0,0" Height="24" Name="bLogout" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Width="52" Click="onLogout"></Button>
         <Border Name="Message" VerticalAlignment="Bottom" Padding="10" Margin="10" Visibility="Collapsed">
             <TextBlock Foreground="White" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Name="MessageText"></TextBlock>
         </Border>

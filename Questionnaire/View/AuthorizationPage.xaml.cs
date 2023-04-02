@@ -36,6 +36,8 @@ namespace Questionnaire.View {
 				return;
 			}
 
+			MainWindow.OnLogin();
+
 			if (account.Role == Role.Teacher) {
 				NavigationService.Navigate(Pages.Teacher);
 				return;
@@ -50,6 +52,10 @@ namespace Questionnaire.View {
 				NavigationService.Navigate(Pages.Teacher);
 				return;
 			}
+		}
+
+		public void LogOut() {
+			account = null;
 		}
 	}
 }

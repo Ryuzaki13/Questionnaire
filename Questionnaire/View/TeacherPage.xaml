@@ -43,7 +43,7 @@
                             <TextBlock FontSize="17" Text="{Binding Position}" VerticalAlignment="Center" TextAlignment="Center" Width="24"></TextBlock>
                             <TextBlock>
                                 <Run FontWeight="Bold" Text="Вопрос:"></Run>
-                                <Run FontStyle="Italic" Text="{Binding Content.Text}"></Run>
+                                <Run FontStyle="Italic" Text="{Binding Text}"></Run>
                                 <LineBreak></LineBreak>
                                 <Run FontWeight="Bold" Text="Тип вопроса:"></Run>
                                 <Run FontStyle="Italic" Text="{Binding TypeReference.Description}"></Run>

@@ -35,9 +35,8 @@ namespace Questionnaire.View {
 
 			Question question = new Question();
 			question.Type = SelectedQuestionType.Name;
-			question.Content = new QuestionContent() {
-				Text = text
-			};
+			question.Text = text;
+			question.Content = new QuestionContent();
 
 			if (isQuestionIncludeVariants()) {
 				question.Content.Variants = Variants.ToArray();

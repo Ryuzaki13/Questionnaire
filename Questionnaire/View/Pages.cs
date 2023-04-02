@@ -67,5 +67,13 @@ namespace Questionnaire.View {
 			}
 		}
 
+		public static void Reset() {
+			registration = null;
+			authorization = null;
+			teacher = null;
+			student = null;
+			questionConstructor = null;
+			questionnaire = null;
+		}
 	}
 }
