@@ -73,6 +73,8 @@ namespace QuestionnaireDatabaseLib {
 
 						object value;
 						if (reader.GetPostgresType(i).Name == "jsonb") {
+							
+							value = JsonSerializer.Deserialize<QuestionContent>(reader.GetString(i));
 							value = JsonSerializer.Deserialize<QuestionContent>(reader.GetString(i));
 						} else {
 							value = reader.GetValue(i);

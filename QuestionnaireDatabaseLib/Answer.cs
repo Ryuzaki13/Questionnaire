@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace QuestionnaireDatabaseLib {
 	[PostgresTable]
@@ -12,6 +13,7 @@ namespace QuestionnaireDatabaseLib {
 		[PostgresField]
 		public int Question { get; set; }
 
+		[JsonRequired]
 		[PostgresField]
 		public QuestionContent Content { get; set; }
 

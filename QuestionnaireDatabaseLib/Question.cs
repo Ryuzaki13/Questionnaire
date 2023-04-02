@@ -7,6 +7,8 @@ namespace QuestionnaireDatabaseLib {
 		public int ID { get; set; }
 		[PostgresField]
 		public string Type { get; set; }
+		[PostgresField]
+		public string Text { get; set; }
 		[JsonRequired]
 		[PostgresField]
 		public QuestionContent Content { get; set; }

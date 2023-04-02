@@ -36,6 +36,7 @@ create table "Question"
 (
     "ID"       serial primary key,
     "Type"     varchar references "QuestionType" ("Name"),
+    "Text"     varchar not null,
     "Content"  jsonb   not null,
     "Form"     integer not null references "Form" ("ID"),
     "Position" integer not null
@@ -65,9 +66,3 @@ INSERT INTO "Account" ("Login", "Password", "FirstName", "LastName", "Patronymic
 
 INSERT INTO "Form" ("ID", "Name", "Teacher") VALUES (2, 'Первая анкетка', 'Hello');
 INSERT INTO "Form" ("ID", "Name", "Teacher") VALUES (4, 'Типа вторая анкетка', 'Hello');
-
-INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (1, 'TextBox', '{"Text": "Hello", "Variants": null}', 2, 1);
-INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (2, 'TextBox', '{"Text": "World", "Variants": null}', 2, 2);
-INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (3, 'ComboBox', '{"Text": "Пупсик?", "Variants": ["Да", "Нет", "Сомневаюсь"]}', 2, 3);
-INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (4, 'ComboBox', '{"Text": "Есть ли у вас компьютер?", "Variants": ["Да", "Нет"]}', 4, 1);
-INSERT INTO "Question" ("ID", "Type", "Content", "Form", "Position") VALUES (5, 'ComboBox', '{"Text": "Любишь играть в доту?", "Variants": ["Нет", "НЕТ", "Скорее всего нет!"]}', 4, 2);

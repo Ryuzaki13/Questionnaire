@@ -37,6 +37,10 @@ namespace QuestionnaireDatabaseLib {
 			}
 		}
 
+		public static void Reload() {
+			load();
+		}
+
 		private static void load() {
 			loadRoles();
 			loadClasses();
@@ -267,6 +271,17 @@ namespace QuestionnaireDatabaseLib {
 			buildQuestion(question);
 
 			return question;
+		}
+		public static Answer AddAnswer(Answer answer) {
+			Answer responseAnswer = Add(answer);
+			if (responseAnswer != null) {
+				answer.ID = responseAnswer.ID;
+			}
+
+			answers.Add(answer);
+			buildAnswer(answer);
+
+			return answer;
 		}
 
 		private static T Add<T>(T entity) where T : new() {
