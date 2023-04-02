@@ -44,9 +44,11 @@ namespace Questionnaire.UserControls {
 		}
 
 		public string[] GetAnswers() {
-			string answer = AnswerText.Trim();
-			if (answer.Length != 0) {
-				return new string[] { answer };
+			if (AnswerText != null) {
+				string answer = AnswerText.Trim();
+				if (answer.Length != 0) {
+					return new string[] { answer };
+				}
 			}
 			return new string[] { };
 		}

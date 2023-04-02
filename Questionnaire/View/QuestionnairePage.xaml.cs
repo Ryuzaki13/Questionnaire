@@ -54,6 +54,14 @@ namespace Questionnaire.View {
 					});
 					continue;
 				}
+				if (question.Type == typeof(DatePicker).Name) {
+					wpQuestions.Children.Add(new UserControls.QuestionDate() {
+						Position = question.Position,
+						QuestionText = question.Content.Text,
+						ID = question.ID,
+					});
+					continue;
+				}
 			}
 		}
 
@@ -65,7 +73,7 @@ namespace Questionnaire.View {
 					if (answers.Length != 0) {
 						Console.Write(questionElement.GetID());
 						Console.Write(": ");
-						Console.WriteLine(String.Join("; ", answers));
+						Console.WriteLine(string.Join("; ", answers));
 					} else {
 						Console.Write("Вопрос ");
 						Console.Write(questionElement.GetID());

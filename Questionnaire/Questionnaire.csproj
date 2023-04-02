@@ -84,6 +84,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="UserControls\IQuestionElement.cs" />
+    <Compile Include="UserControls\QuestionDate.xaml.cs">
+      <DependentUpon>QuestionDate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\QuestionManyVariant.xaml.cs">
       <DependentUpon>QuestionManyVariant.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\QuestionDate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\QuestionManyVariant.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
