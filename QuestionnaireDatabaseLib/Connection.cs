@@ -5,12 +5,6 @@ using System.Reflection;
 using System.Text.Json;
 
 namespace QuestionnaireDatabaseLib {
-
-	public class QuestionnaireContent {
-		public string Text { get; set; }
-		public string[] Items { get; set; }
-	}
-
 	public class Connection {
 		private NpgsqlConnection connection;
 
