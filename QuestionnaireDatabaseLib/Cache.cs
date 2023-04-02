@@ -160,7 +160,11 @@ namespace QuestionnaireDatabaseLib {
 		}
 
 		private static void buildAccount(Account account) {
-			accountMap.Add(account.Login, account);
+			if (accountMap.ContainsKey(account.Login)) {
+				accountMap[account.Login] = account;
+			} else {
+				accountMap.Add(account.Login, account);
+			}
 
 			foreach (Role role in roles) {
 				if (role.Name == account.Role) {
@@ -179,7 +183,12 @@ namespace QuestionnaireDatabaseLib {
 			}
 		}
 		private static void buildForm(Form form) {
-			formMap.Add(form.ID, form);
+			if (formMap.ContainsKey(form.ID)) {
+				formMap[form.ID] = form;
+			} else {
+				formMap.Add(form.ID, form);
+			}
+
 
 			Account account = accountMap[form.Teacher];
 			if (account != null) {
@@ -188,7 +197,12 @@ namespace QuestionnaireDatabaseLib {
 			}
 		}
 		private static void buildQuestion(Question question) {
-			questionMap.Add(question.ID, question);
+			if (questionMap.ContainsKey(question.ID)) {
+				questionMap[question.ID] = question;
+			} else {
+				questionMap.Add(question.ID, question);
+			}
+
 
 			Form form = formMap[question.Form];
 			if (form != null) {
