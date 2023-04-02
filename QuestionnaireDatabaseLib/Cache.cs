@@ -38,6 +38,11 @@ namespace QuestionnaireDatabaseLib {
 		}
 
 		public static void Reload() {
+			accountMap.Clear();
+			formMap.Clear();
+			questionMap.Clear();
+			accountAnswersMap.Clear();
+
 			load();
 		}
 
